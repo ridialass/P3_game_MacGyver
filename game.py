@@ -53,7 +53,26 @@ level_1 = False
 level_2 = False
 
 
-def go_ahead():
+def go_ahead_level_1():
+    """Make a choice to play again or live."""
+    running_result = 1
+    while running_result:
+        pygame.display.flip()
+        pygame.time.Clock().tick(30)
+        for event in pygame.event.get():
+            # Seeking every events happening while the game is running
+            if event.type == locals.QUIT:
+                # If any of these events is QUIT type
+                exit()
+                # Loop is stopped and the game windows is closed
+            elif event.type == locals.KEYDOWN:
+                if event.key == locals.K_ESCAPE:
+                    exit()
+                elif event.key == locals.K_RETURN:
+                    game_level_1()
+
+
+def go_ahead_level_2():
     """Make a choice to play again or live."""
     running_result = 1
     while running_result:
@@ -100,8 +119,6 @@ def end_message(alert_text=' Game-over', app_text='Well-done'):
     screen.blit(text_2, textrect_2)
     screen.blit(text_3, textrect_3)
     screen.blit(text_4, textrect_4)
-    """pygame.display.flip()"""
-    go_ahead()
 
 
 def game_level_1():
@@ -109,7 +126,7 @@ def game_level_1():
     pygame.mixer.music.load(ct.Music_1)
     pygame.mixer.music.set_volume(0.5)
     pygame.mixer.music.play(-1)
-    game_loop()
+    game_loop(ct.Map_1)
 
 
 def game_level_2():
@@ -117,10 +134,10 @@ def game_level_2():
     pygame.mixer.music.load(ct.Music_2)
     pygame.mixer.music.set_volume(0.3)
     pygame.mixer.music.play(-1)
-    game_loop(level=ct.Map_2)
+    game_loop(ct.Map_2)
 
 
-def game_loop(level=ct.Map_1):
+def game_loop(level):
     """Main loop."""
     # Moving MaGyver by maintening a direction_key pressed
     pygame.key.set_repeat(400, 30)
@@ -213,7 +230,10 @@ def game_loop(level=ct.Map_1):
             # EndGame Victory or loose
             if stage.structure[macgyver.case_y][macgyver.case_x] == 'G':
                 # If MacGyver reach the guard
-                if tube_on is False and needle_on is False and ether_on is False:
+                tube_off = tube_on is False
+                needle_off = needle_on is False
+                ether_off = ether_on is False
+                if tube_off and needle_off and ether_off:
                     # If every objects have been looted, he won.
                     won = True
                     pygame.mixer.Sound.play(sound_win)
@@ -225,10 +245,12 @@ def game_loop(level=ct.Map_1):
                 notification = 'You have won !'
                 appreciation = 'MacGyver is safe thanks to you !'
                 end_message(notification, appreciation)
+                go_ahead_level_2()
             if loose is True:
                 notification = 'You have lost!'
                 appreciation = 'MacGyver is killed !'
                 end_message(notification, appreciation)
+                go_ahead_level_1()
                 # pygame.display.flip()
 
 game_level_1()

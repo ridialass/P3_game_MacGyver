@@ -5,7 +5,6 @@
 
 
 import pygame  # needed ?
-import os
 import logging as lg
 
 import constant as ct
@@ -88,12 +87,12 @@ class Labyrinth:
                 self.structure = map_structure
             # we re-define the structure
         except FileNotFoundError as e:
-            lg.critical("Verify if map file exists and is readable" e)
+            lg.critical("Verify if map file exists and is readable")
 
     def display(self, screen):
         """Display the labyrinth."""
         wall = pygame.image.load(ct.Wall).convert()
-        badguy = pygame.image.load(ct.BadGuy).convert_alpha()
+        guardian = pygame.image.load(ct.Guardian).convert_alpha()
         try:
             num_line = 0
             for line in self.structure:
@@ -107,9 +106,8 @@ class Labyrinth:
                         screen.blit(wall, (x, y))
                         # We blit the wall-img to the position on the case
                     elif sprite == 'G':
-                        # a = BadGuy (exit)
-                        screen.blit(badguy, (x, y))
-                        # We blit the badguy-img
+                        screen.blit(guardian, (x, y))
+                        # We blit the guardian-img
                     num_case += 1
                     # once done with a sprite, we follow with the next entry
                 num_line += 1

@@ -25,7 +25,7 @@ Wall = "images/wall.png"
 
 MacGyver = "images/macgyver.png"
 
-BadGuy = "images/guardian.png"
+Guardian = "images/guardian.png"
 
 Map_1 = "ressources/map_1.txt"
 
