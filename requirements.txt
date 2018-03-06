@@ -1,2 +1,5 @@
 requests
 pygame
+random
+sys
+os
