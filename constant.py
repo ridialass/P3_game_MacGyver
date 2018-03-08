@@ -31,7 +31,7 @@ Map_1 = "ressources/map_1.txt"
 
 Map_2 = "ressources/map_2.txt"
 
-Music_1 = "sounds/foret.wav"
+Music_1 = "sounds/pluie.ogg"
 
 Music_2 = "sounds/harpe_orient.wav"
 
